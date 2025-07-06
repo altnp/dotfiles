@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+remote=$(git remote -v | awk '/\(push\)$/ {print $2}')
+email='{{ .email }}' # default
+name='{{ .name }}'
+
+if [[ $remote == *github.com* ]]; then
+  echo "Configuring for GitHub Remote Repo:"
+  email={{ .email }}
+elif [[ $remote == *dev.azure.com/tcetra* ]]; then
+  echo "Configuring for T-Cetra AzureDevops Remote Repo:"
+  email={{ .workEmail }}
+elif [[ $remote == *ssh.dev.azure.com:v3/tcetra* ]]; then
+  echo "Configuring for T-Cetra AzureDevops Remote Repo:"
+  email={{ .workEmail }}
+else
+  echo "Using defaults:"
+fi
+
+echo "Configuring user.email as $email"
+git config user.email "$email"
+echo "Configuring user.name as $name"
+git config user.name "$name"

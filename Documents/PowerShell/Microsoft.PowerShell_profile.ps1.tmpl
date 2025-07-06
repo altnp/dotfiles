@@ -1,0 +1,41 @@
+Set-PSReadLineOption -PredictionSource None
+Set-PSReadLineOption -BellStyle None
+$PROFILE_DIR = $(Split-Path $PROFILE);
+$CHEZMOI_DIR = "~\.local\share\chezmoi"
+$WSL_HOME = $env:WSL_HOME
+{{- if lookPath "nvim" }}
+$NVIM_DIR = "${env:LocalAppData}/nvim"
+{{- end }}
+
+# Source Scripts
+Get-ChildItem -Path "$(Split-Path $profile)\scripts\" -Filter *.ps1 | ForEach-Object {
+    . $_.FullName
+}
+
+# Source Aliases
+. $PROFILE_DIR\aliases.ps1
+
+Set-PSReadLineKeyHandler -Key Ctrl+u -Function BackwardDeleteLine
+if ($IsWindows -eq $FALSE) {
+    Set-PSReadLineKeyHandler -Key Shift+Tab -Function TabCompletePrevious
+    Set-PSReadLineKeyHandler -Key Tab -Function TabCompleteNext
+}
+
+# Source Auto Completions
+Get-ChildItem -Path "$(Split-Path $profile)\completions\" -Filter *.ps1 | ForEach-Object {
+    . $_.FullName
+}
+Import-Module lazy-posh-git
+Import-Module posh-docker
+Import-Module npm-completion
+
+# Prompt
+{{- if .ohMyPoshEnabled }}
+if ($Env:WT_SESSION -or $Env:TERM_PROGRAM -eq "vscode") {
+    $env:POSH_GIT_ENABLED = $true
+    oh-my-posh init pwsh --config "$(Split-Path $profile)\oh-my-posh.json" | Invoke-Expression;
+}
+{{- end }}
+
+Set-PSReadLineOption -Colors @{ Parameter = 'green' }
+Set-PSReadLineOption -Colors @{ Operator = 'cyan' }

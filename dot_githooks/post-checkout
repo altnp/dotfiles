@@ -1,0 +1,5 @@
+#!/bin/sh
+
+if [[ $1 == 00000000000* ]]; then
+  git auto-config
+fi

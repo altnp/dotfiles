@@ -1,0 +1,23 @@
+README.md
+{{- if ne .chezmoi.os "windows" }}
+.ahk/
+.gitscripts/
+.githooks/
+AppData/
+Documents/
+.gitconfig
+.wslconfig
+{{- end }}
+{{- if (and (eq .chezmoi.os "windows") (not .ohMyPoshEnabled)) }}
+Documents/PowerShell/oh-my-posh.json
+{{- end }}
+
+{{- if ne .chezmoi.os "linux" }}
+.config/bash/
+.config/git/
+.bashrc
+.profile
+{{- end }}
+{{- if (and (eq .chezmoi.os "linux") (not .ohMyPoshEnabled)) }}
+.config/bash/oh-my-posh.json
+{{- end }}

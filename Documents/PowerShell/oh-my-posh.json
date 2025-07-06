@@ -1,0 +1,128 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "final_space": true,
+  "console_title_template": "{{.Folder}}",
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "segments": [
+        {
+          "foreground": "blue",
+          "foreground_templates": ["{{ if .Error }}lightRed{{ end }}"],
+          "style": "plain",
+          "template": "╭─",
+          "type": "status",
+          "properties": {
+            "always_enabled": true
+          }
+        },
+        {
+          "background": "#313131",
+          "foreground": "white",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "style": "diamond",
+          "template": " {{.Icon}} ",
+          "type": "os",
+          "properties": {
+            "windows": "",
+            "ubuntu": "<yellow></>"
+          }
+        },
+        {
+          "type": "path",
+          "foreground": "white",
+          "background": "blue",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "style": "diamond",
+          "template": "  {{ .Path }} ",
+          "properties": {
+            "style": "folder"
+          }
+        },
+        {
+          "type": "git",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "style": "diamond",
+          "foreground": "white",
+          "background": "#313131",
+          "template": " {{ if and .Ahead .Behind }}<yellow>{{ .HEAD }}{{ .BranchStatus }}</>{{ else if .Ahead }}<lightGreen>{{ .HEAD }}{{ .BranchStatus }}</>{{ else if .Behind }}<lightRed>{{ .HEAD }}{{ .BranchStatus }}</>{{ else }}{{ .HEAD }}{{ .BranchStatus }}{{ end }}{{ if .Staging.Changed }}<lightGreen>{{ if gt .Staging.Added 0 }} +{{ .Staging.Added }}{{ end }}{{ if gt .Staging.Modified 0 }} ~{{ .Staging.Modified }}{{ end }}{{ if gt .Staging.Deleted 0 }} -{{ .Staging.Deleted }}{{ end }}</>{{ if gt .Staging.Unmerged 0 }}<lightRed> !{{ .Staging.Unmerged }}</>{{ end }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}<yellow>{{ if gt .Working.Untracked 0 }} +{{ .Working.Untracked }}{{ end }}{{ if gt .Working.Modified 0 }} ~{{ .Working.Modified }}{{ end }}{{ if gt .Working.Deleted 0 }} -{{ .Working.Deleted }}{{ end }}</>{{ if gt .Working.Unmerged 0 }}<lightRed> !{{ .Working.Unmerged }}</>{{ end }}{{ end }}{{ if gt .StashCount 0 }} 󰆓{{ .StashCount }}{{ end }} ",
+          "properties": {
+            "fetch_stash_count": true,
+            "fetch_status": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "aws",
+          "style": "plain",
+          "foreground": "#F29100",
+          "template": "{{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }}",
+          "properties": {
+            "display_default": false
+          }
+        },
+        {
+          "foreground": "#3399cc",
+          "style": "plain",
+          "template": "  {{ .Venv }} {{ .Full }} ",
+          "type": "python"
+        },
+        {
+          "foreground": "#8ee343",
+          "style": "plain",
+          "template": "{{ if .Env.LOADED_ENV_PROFILE }} 󰅬 {{ .Env.LOADED_ENV_PROFILE }}{{ end }}",
+          "type": "text"
+        },
+        {
+          "type": "kubectl",
+          "style": "plain",
+          "foreground": "#3872e7",
+          "template": "{{ .Context }}{{ if and .Namespace (ne .Namespace \"docker-desktop\") }} 󱃾 {{ .Namespace }}{{ end }}",
+          "properties": {
+            "context_aliases": {
+              "docker-desktop": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "blue",
+          "foreground_templates": ["{{ if .Error }}lightRed{{ end }}"],
+          "style": "plain",
+          "template": "╰─",
+          "type": "status",
+          "properties": {
+            "always_enabled": true
+          }
+        }
+      ]
+    }
+  ],
+  "osc99": true,
+  "transient_prompt": {
+    "background": "transparent",
+    "foreground": "white",
+    "template": " "
+  },
+  "secondary_prompt": {
+    "background": "transparent",
+    "foreground": "white",
+    "template": "-> "
+  }
+}

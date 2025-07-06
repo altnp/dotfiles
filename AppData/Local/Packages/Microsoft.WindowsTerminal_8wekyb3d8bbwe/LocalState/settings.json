@@ -1,0 +1,109 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [],
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "keybindings": [
+        {
+            "id": "Terminal.CopyToClipboard",
+            "keys": "ctrl+c"
+        }
+    ],
+    "newTabMenu": [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": {
+        "defaults": {
+            "bellStyle": "none",
+            "colorScheme": "Dark Modern",
+            "cursorShape": "underscore",
+            "font": {
+                "face": "FiraCode Nerd Font Mono",
+                "size": 12
+            },
+            "intenseTextStyle": "bright",
+            "padding": "5",
+            "useAcrylic": true
+        },
+        "list": [
+            {
+                "commandline": "pwsh -nologo",
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "name": "PowerShell",
+                "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "Command Prompt"
+            },
+            {
+                "guid": "{389694bd-b6f5-503b-82d0-30ee006700ee}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Microsoft.WSL"
+            }
+        ]
+    },
+    "schemes": [
+        {
+            "background": "#1E1E1E",
+            "black": "#1F1F1F",
+            "blue": "#026EC1",
+            "brightBlack": "#313131",
+            "brightBlue": "#3399CC",
+            "brightCyan": "#4EC9B0",
+            "brightGreen": "#86C691",
+            "brightPurple": "#C586C0",
+            "brightRed": "#D16969",
+            "brightWhite": "#F8F8F8",
+            "brightYellow": "#F8EA6B",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#4EC9B0",
+            "foreground": "#FFFFFF",
+            "green": "#6A9955",
+            "name": "Dark Modern",
+            "purple": "#7F6AC1",
+            "red": "#F14C4C",
+            "selectionBackground": "#264F78",
+            "white": "#F8F8F8",
+            "yellow": "#D9B041"
+        },
+        {
+            "background": "#1F1F28",
+            "black": "#1F1F28",
+            "blue": "#375071",
+            "brightBlack": "#2A2A37",
+            "brightBlue": "#658594",
+            "brightCyan": "#A1E1CE",
+            "brightGreen": "#98BB6C",
+            "brightPurple": "#D27E99",
+            "brightRed": "#FF5D62",
+            "brightWhite": "#DCD7BA",
+            "brightYellow": "#E6C384",
+            "cursorColor": "#DCD7BA",
+            "cyan": "#A1E1CE",
+            "foreground": "#DCD7BA",
+            "green": "#76946A",
+            "name": "Kanagawa",
+            "purple": "#957FB8",
+            "red": "#E82424",
+            "selectionBackground": "#223249",
+            "white": "#DCD7BA",
+            "yellow": "#FF9E3B"
+        }
+    ],
+    "showTabsInTitlebar": true,
+    "themes": [],
+    "useAcrylicInTabRow": true
+}

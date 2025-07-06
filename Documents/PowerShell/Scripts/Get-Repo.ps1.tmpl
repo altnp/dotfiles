@@ -1,0 +1,91 @@
+$reposDir = "{{ .reposDir }}"
+$companyDirs = @("Tcetra");
+
+function Get-ExcludedChildren {
+    param (
+        [string]$baseDir
+    )
+    return Get-ChildItem -Path $baseDir -Directory | Select-Object -ExpandProperty FullName
+}
+
+function Get-IncludedChildren {
+    param (
+        [string]$baseDir,
+        [string[]]$exclusions
+    )
+    return Get-ChildItem -Path $baseDir -Directory -Recurse -Depth 1 |
+        Where-Object { $exclusions -notcontains $_.FullName }
+}
+
+function Invoke-Repo {
+    param(
+        [string]$name,
+        [string]$b,
+        [switch]$m
+    )
+
+    $repo = Get-Repo $name
+    if ($repo) {
+        Set-Location -Path $repo.FullName
+
+        if ($m) {
+            $b = "master"
+        }
+
+        if ($b) {
+            git checkout $b -q
+        }
+    }
+    else {
+        Write-Host "Repo '$name' not found" -ForegroundColor Red
+    }
+}
+
+function Search-Repos {
+    param(
+        [string]$name
+    )
+
+    $excludedChildren = Get-ExcludedChildren $reposDir
+    $includedChildren = Get-IncludedChildren $reposDir -exclusions $excludedChildren
+    foreach ($companyDir in $companyDirs) {
+        $companyExcluded = Get-ExcludedChildren ("$reposDir\$companyDir")
+        $includedChildren += Get-IncludedChildren ("$reposDir\$companyDir") -exclusions $companyExcluded
+    }
+
+    $repos = $includedChildren | Where-Object { $_.Name -like "*$name*" }
+
+    return $repos
+}
+
+function Get-Repo {
+    param (
+        [string]$name
+    )
+
+    $excludedChildren = Get-ExcludedChildren $reposDir
+    $includedChildren = Get-IncludedChildren $reposDir -exclusions $excludedChildren
+    foreach ($companyDir in $companyDirs) {
+        $companyExcluded = Get-ExcludedChildren ("$reposDir\$companyDir")
+        $includedChildren += Get-IncludedChildren ("$reposDir\$companyDir") -exclusions $companyExcluded
+    }
+
+    $repos = $includedChildren | Where-Object { $_.Name -eq $name }
+
+    if ($repos -and $repos.Count -gt 0) {
+        return $repos[0]
+    }
+
+    return $null
+}
+
+$sb = {
+    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+    Search-Repos $wordToComplete | Select-Object -ExpandProperty Name
+}
+
+Register-ArgumentCompleter -CommandName repo -ParameterName name -ScriptBlock $sb
+Register-ArgumentCompleter -CommandName Invoke-Repo -ParameterName name -ScriptBlock $sb
+
+Set-Alias repo Invoke-Repo
+Set-Alias r Invoke-Repo

@@ -1,0 +1,25 @@
+{{- $gitscripts := "" -}}
+{{- $githooks := "" -}}
+{{- if eq .chezmoi.os "windows" -}}
+  {{- $gitscripts = "~/.gitscripts" -}}
+  {{- $githooks = "~/.githooks" -}}
+{{- else -}}
+  {{- $gitscripts = "~/.config/git/scripts" -}}
+  {{- $githooks = "~/.config/git/hooks" -}}
+{{- end }}
+[mergetool "vscode"]
+    cmd = code -n --wait $MERGED
+[difftool "vscode"]
+    cmd = code -n --wait --diff $LOCAL $REMOTE
+[user]
+    name = {{ .name }}
+    email = {{ .email }}
+[alias]
+    auto-config = !bash {{ $gitscripts }}/auto-config.sh
+    all-repos = !bash {{ $gitscripts }}/all-repos.sh
+    refresh-master = !bash {{ $gitscripts }}/refresh-master.sh
+    pushu = !bash {{ $gitscripts }}/pushu.sh
+[core]
+    hooksPath = {{ $githooks }}
+    autocrlf = input
+    editor = "code -n --wait"

@@ -1,0 +1,26 @@
+{{- $name := promptString "Enter your name (used for Git commits)" -}}
+{{- $email := promptString "Enter your email (personal, for non-work Git commits" -}}
+{{- $workEmail := promptString "Enter your work email" -}}
+
+{{ $reposdir := "" -}}
+{{- if eq .chezmoi.os "windows" -}}
+  {{- $reposdir = promptString "Path to your repos directory" "~/Repos" -}}
+{{- else -}}
+  {{- $reposdir = promptString "Path to your repos directory" "~/repos" -}}
+{{- end -}}
+
+{{- $useSSHTcetraAzDo := promptBool "Use SSH when cloning TCETRA repos from Azure Devops" -}}
+
+{{- $ohMyPoshEnabled := promptBool "Enable OH-MY-POSH with a prebuilt theme" -}}
+
+[data]
+name = {{ $name | quote }}
+email = {{ $email | quote }}
+workEmail = {{ $workEmail | quote }}
+reposDir = {{ $reposdir | quote }}
+ohMyPoshEnabled = {{ $ohMyPoshEnabled }}
+useSSHTcetraAzDo = {{ $useSSHTcetraAzDo }}
+
+[edit]
+command = "code"
+args = ["--wait"]
