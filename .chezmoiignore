@@ -25,4 +25,6 @@ Documents/
 
 {{/* WSL */}}
 {{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.kernel "osrelease") (contains "microsoft" .chezmoi.kernel.osrelease)) }}
+.aws/
+.ideavimrc
 {{- end }}

@@ -1,5 +1,16 @@
 SetKeyDelay, -1
 
+CapsLock::Escape
+^#CapsLock::CapsLock
+
+; Prevent system Alt+Escape behavior and send to active window
+!Escape::
+  SendInput !{Escape}
+Return
+
+;disable opening start menu with lwin key
+~LWin::Send {Blind}{vkE8}
+
 ;Reload Autohotkey Script
 #h::Reload
 
@@ -44,7 +55,7 @@ SwitchToWindowsTerminal()
 
 SwitchToBrowser()
 {
-  windowHandleId := WinExist("ahk_exe chrome.exe")
+  windowHandleId := WinExist("ahk_exe brave.exe")
   windowExistsAlready := windowHandleId > 0
 
   ; If the Windows Terminal is already open, determine if we should put it in focus or minimize it.
@@ -69,7 +80,7 @@ SwitchToBrowser()
   ; Else it's not already open, so launch it.
   else
   {
-    Run, chrome.exe
+    Run, brave.exe
     SendInput, !d
   }
 }
