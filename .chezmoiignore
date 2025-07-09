@@ -1,4 +1,14 @@
 README.md
+{{- if eq .chezmoi.os "windows" }}
+.config/bash/
+.config/git/
+.bashrc
+.profile
+{{- end }}
+{{- if (and (eq .chezmoi.os "windows") (not .ohMyPoshEnabled)) }}
+Documents/PowerShell/oh-my-posh.json
+{{- end }}
+
 {{- if ne .chezmoi.os "windows" }}
 .ahk/
 .gitscripts/
@@ -8,16 +18,10 @@ Documents/
 .gitconfig
 .wslconfig
 {{- end }}
-{{- if (and (eq .chezmoi.os "windows") (not .ohMyPoshEnabled)) }}
-Documents/PowerShell/oh-my-posh.json
+{{- if (and (ne .chezmoi.os "windows") (not .ohMyPoshEnabled)) }}
+.config/bash/oh-my-posh.json
 {{- end }}
 
-{{- if ne .chezmoi.os "linux" }}
-.config/bash/
-.config/git/
-.bashrc
-.profile
-{{- end }}
-{{- if (and (eq .chezmoi.os "linux") (not .ohMyPoshEnabled)) }}
-.config/bash/oh-my-posh.json
+{{/* WSL */}}
+{{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.kernel "osrelease") (contains "microsoft" .chezmoi.kernel.osrelease)) }}
 {{- end }}
