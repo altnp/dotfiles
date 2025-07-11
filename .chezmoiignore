@@ -4,6 +4,7 @@ README.md
 .config/git/
 .bashrc
 .profile
+.hushlogin
 {{- end }}
 {{- if (and (eq .chezmoi.os "windows") (not .ohMyPoshEnabled)) }}
 Documents/PowerShell/oh-my-posh.json
