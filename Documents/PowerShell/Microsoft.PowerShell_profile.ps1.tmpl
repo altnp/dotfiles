@@ -28,6 +28,7 @@ Get-ChildItem -Path "$(Split-Path $profile)\completions\" -Filter *.ps1 | ForEac
 Import-Module lazy-posh-git
 Import-Module posh-docker
 Import-Module npm-completion
+Import-Module WSLTabCompletion
 
 # Prompt
 {{- if .ohMyPoshEnabled }}
