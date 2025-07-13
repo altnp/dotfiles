@@ -1,7 +1,15 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
-  "version": 2,
-  "final_space": true,
+  "secondary_prompt": {
+    "template": "-> ",
+    "foreground": "white",
+    "background": "transparent"
+  },
+  "transient_prompt": {
+    "template": "\ueab6 ",
+    "foreground": "white",
+    "background": "transparent"
+  },
   "console_title_template": "{{.Folder}}",
   "blocks": [
     {
@@ -9,52 +17,56 @@
       "alignment": "left",
       "segments": [
         {
+          "properties": {
+            "always_enabled": true,
+            "cache_duration": "none"
+          },
+          "template": "\u256d\u2500",
           "foreground": "blue",
-          "foreground_templates": ["{{ if .Error }}lightRed{{ end }}"],
-          "style": "plain",
-          "template": "╭─",
           "type": "status",
-          "properties": {
-            "always_enabled": true
-          }
+          "style": "plain",
+          "foreground_templates": ["{{ if .Error }}lightRed{{ end }}"]
         },
         {
-          "background": "#313131",
-          "foreground": "white",
-          "leading_diamond": "",
-          "trailing_diamond": "",
-          "style": "diamond",
+          "properties": {
+            "cache_duration": "none",
+            "ubuntu": "<yellow>\uf31b</>",
+            "windows": "\ue62a"
+          },
+          "leading_diamond": "\ue0be",
+          "trailing_diamond": "\ue0b8",
           "template": " {{.Icon}} ",
+          "foreground": "white",
+          "background": "#313131",
           "type": "os",
-          "properties": {
-            "windows": "",
-            "ubuntu": "<yellow></>"
-          }
+          "style": "diamond"
         },
         {
-          "type": "path",
+          "properties": {
+            "cache_duration": "none",
+            "style": "folder"
+          },
+          "leading_diamond": "\ue0be",
+          "trailing_diamond": "\ue0b8",
+          "template": " \uf07b {{ .Path }} ",
           "foreground": "white",
           "background": "blue",
-          "leading_diamond": "",
-          "trailing_diamond": "",
-          "style": "diamond",
-          "template": "  {{ .Path }} ",
-          "properties": {
-            "style": "folder"
-          }
+          "type": "path",
+          "style": "diamond"
         },
         {
-          "type": "git",
-          "leading_diamond": "",
-          "trailing_diamond": "",
-          "style": "diamond",
-          "foreground": "white",
-          "background": "#313131",
-          "template": " {{ if and .Ahead .Behind }}<yellow>{{ .HEAD }}{{ .BranchStatus }}</>{{ else if .Ahead }}<lightGreen>{{ .HEAD }}{{ .BranchStatus }}</>{{ else if .Behind }}<lightRed>{{ .HEAD }}{{ .BranchStatus }}</>{{ else }}{{ .HEAD }}{{ .BranchStatus }}{{ end }}{{ if .Staging.Changed }}<lightGreen>{{ if gt .Staging.Added 0 }} +{{ .Staging.Added }}{{ end }}{{ if gt .Staging.Modified 0 }} ~{{ .Staging.Modified }}{{ end }}{{ if gt .Staging.Deleted 0 }} -{{ .Staging.Deleted }}{{ end }}</>{{ if gt .Staging.Unmerged 0 }}<lightRed> !{{ .Staging.Unmerged }}</>{{ end }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}<yellow>{{ if gt .Working.Untracked 0 }} +{{ .Working.Untracked }}{{ end }}{{ if gt .Working.Modified 0 }} ~{{ .Working.Modified }}{{ end }}{{ if gt .Working.Deleted 0 }} -{{ .Working.Deleted }}{{ end }}</>{{ if gt .Working.Unmerged 0 }}<lightRed> !{{ .Working.Unmerged }}</>{{ end }}{{ end }}{{ if gt .StashCount 0 }} 󰆓{{ .StashCount }}{{ end }} ",
           "properties": {
+            "cache_duration": "none",
             "fetch_stash_count": true,
             "fetch_status": true
-          }
+          },
+          "leading_diamond": "\ue0be",
+          "trailing_diamond": "\ue0b8",
+          "template": " {{ if and .Ahead .Behind }}<yellow>{{ .HEAD }}{{ .BranchStatus }}</>{{ else if .Ahead }}<lightGreen>{{ .HEAD }}{{ .BranchStatus }}</>{{ else if .Behind }}<lightRed>{{ .HEAD }}{{ .BranchStatus }}</>{{ else }}{{ .HEAD }}{{ .BranchStatus }}{{ end }}{{ if .Staging.Changed }}<lightGreen>{{ if gt .Staging.Added 0 }} +{{ .Staging.Added }}{{ end }}{{ if gt .Staging.Modified 0 }} ~{{ .Staging.Modified }}{{ end }}{{ if gt .Staging.Deleted 0 }} -{{ .Staging.Deleted }}{{ end }}</>{{ if gt .Staging.Unmerged 0 }}<lightRed> !{{ .Staging.Unmerged }}</>{{ end }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}<yellow>{{ if gt .Working.Untracked 0 }} +{{ .Working.Untracked }}{{ end }}{{ if gt .Working.Modified 0 }} ~{{ .Working.Modified }}{{ end }}{{ if gt .Working.Deleted 0 }} -{{ .Working.Deleted }}{{ end }}</>{{ if gt .Working.Unmerged 0 }}<lightRed> !{{ .Working.Unmerged }}</>{{ end }}{{ end }}{{ if gt .StashCount 0 }} \udb80\udd93{{ .StashCount }}{{ end }} ",
+          "foreground": "white",
+          "background": "#313131",
+          "type": "git",
+          "style": "diamond"
         }
       ]
     },
@@ -63,66 +75,66 @@
       "alignment": "right",
       "segments": [
         {
-          "type": "aws",
-          "style": "plain",
-          "foreground": "#F29100",
-          "template": "{{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }}",
           "properties": {
+            "cache_duration": "none",
             "display_default": false
-          }
+          },
+          "template": "\ue7ad{{ .Profile }}{{ if .Region }}@{{ .Region }}{{ end }}",
+          "foreground": "#F29100",
+          "type": "aws",
+          "style": "plain"
         },
         {
-          "foreground": "#3399cc",
-          "style": "plain",
-          "template": "  {{ .Venv }} {{ .Full }} ",
-          "type": "python"
-        },
-        {
-          "foreground": "#8ee343",
-          "style": "plain",
-          "template": "{{ if .Env.LOADED_ENV_PROFILE }} 󰅬 {{ .Env.LOADED_ENV_PROFILE }}{{ end }}",
-          "type": "text"
-        },
-        {
-          "type": "kubectl",
-          "style": "plain",
-          "foreground": "#3872e7",
-          "template": "{{ .Context }}{{ if and .Namespace (ne .Namespace \"docker-desktop\") }} 󱃾 {{ .Namespace }}{{ end }}",
           "properties": {
+            "cache_duration": "none"
+          },
+          "template": " \ue235 {{ .Venv }} {{ .Full }} ",
+          "foreground": "#3399cc",
+          "type": "python",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "cache_duration": "none"
+          },
+          "template": "{{ if .Env.LOADED_ENV_PROFILE }} \udb80\udd6c {{ .Env.LOADED_ENV_PROFILE }}{{ end }}",
+          "foreground": "#8ee343",
+          "type": "text",
+          "style": "plain"
+        },
+        {
+          "properties": {
+            "cache_duration": "none",
             "context_aliases": {
               "docker-desktop": ""
             }
-          }
+          },
+          "template": "{{ .Context }}{{ if and .Namespace (ne .Namespace \"docker-desktop\") }} \udb84\udcfe {{ .Namespace }}{{ end }}",
+          "foreground": "#3872e7",
+          "type": "kubectl",
+          "style": "plain"
         }
       ]
     },
     {
       "type": "prompt",
       "alignment": "left",
-      "newline": true,
       "segments": [
         {
-          "foreground": "blue",
-          "foreground_templates": ["{{ if .Error }}lightRed{{ end }}"],
-          "style": "plain",
-          "template": "╰─",
-          "type": "status",
           "properties": {
-            "always_enabled": true
-          }
+            "always_enabled": true,
+            "cache_duration": "none"
+          },
+          "template": "\u2570\u2500",
+          "foreground": "blue",
+          "type": "status",
+          "style": "plain",
+          "foreground_templates": ["{{ if .Error }}lightRed{{ end }}"]
         }
-      ]
+      ],
+      "newline": true
     }
   ],
-  "osc99": true,
-  "transient_prompt": {
-    "background": "transparent",
-    "foreground": "white",
-    "template": " "
-  },
-  "secondary_prompt": {
-    "background": "transparent",
-    "foreground": "white",
-    "template": "-> "
-  }
+  "version": 3,
+  "final_space": true
 }
