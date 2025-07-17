@@ -1,0 +1,35 @@
+#!/bin/zsh
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+export HISTFILE="$ZDOTDIR/.histfile"
+export HISTSIZE=10000
+export SAVEHIST=10000
+
+export LESS="-R -M -i -j3 -F"
+
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
+export ANDROID_HOME="$XDG_DATA_HOME/android"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export npm_config_cache="${XDG_CACHE_HOME}/npm"
+export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
+export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export GOPATH="${XDG_DATA_HOME}/go"
+export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
+export DOTNET_ROOT="/lib/dotnet"
+export TF_CLI_CONFIG_FILE="${XDG_CONFIG_HOME}/terraform/.terraformrc"
+
+typeset -U PATH path
+path=(
+    "$HOME/.local/bin"
+    "$HOME/bin"
+    "$PNPM_HOME"
+    "$CARGO_HOME/bin"
+    "$GOPATH/bin"
+    # shellcheck disable=SC2206
+    $path
+    "$HOME/.dotnet/tools"
+)

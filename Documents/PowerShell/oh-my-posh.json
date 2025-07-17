@@ -31,7 +31,8 @@
           "properties": {
             "cache_duration": "none",
             "ubuntu": "<yellow>\uf31b</>",
-            "windows": "\ue62a"
+            "windows": "\ue62a",
+            "arch": "<#0f94d2>\udb82\udcc7</>"
           },
           "leading_diamond": "\ue0be",
           "trailing_diamond": "\ue0b8",

@@ -1,0 +1,15 @@
+#compdef _load-profile load-profile
+
+_load_profile() {
+    if (( CURRENT == 2 )); then
+        local dir=""
+        if [[ -n "$XDG_DATA_HOME" && -d "$XDG_DATA_HOME/envs" ]]; then
+            dir="$XDG_DATA_HOME/envs"
+        else
+            dir="$HOME/.envs"
+        fi
+        local -a files
+        files=($(ls "$dir"/*.env 2>/dev/null | xargs -n 1 basename | sed 's/\.env$//'))
+        _describe 'profile file' files
+    fi
+}

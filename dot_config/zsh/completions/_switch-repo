@@ -1,0 +1,6 @@
+#compdef _switch-repo switch-repo
+function _switch-repo() {
+    local word
+    word="$words[CURRENT]"
+    compadd -- $(search-repos "$word")
+}

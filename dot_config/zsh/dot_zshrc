@@ -1,0 +1,37 @@
+#!/bin/zsh
+fpath=($ZDOTDIR/completions $fpath)
+WORDCHARS=${WORDCHARS//\/}
+
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
+eval "$(dircolors -b ~/.config/zsh/dircolors)"
+export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
+export BAT_THEME="Visual Studio Dark+"
+
+setopt correct
+setopt extendedglob
+setopt globdots
+setopt no_beep
+setopt interactivecomments
+setopt pushdsilent
+setopt menu_complete
+unsetopt auto_list
+
+autoload -Uz compinit && compinit
+eval "$(zoxide init zsh)"
+
+. "${XDG_CONFIG_HOME}"/zsh/.zsh_aliases
+. "${XDG_CONFIG_HOME}"/zsh/.zsh_keybinds
+. "${XDG_CONFIG_HOME}"/zsh/.zsh_completions
+for script in "${XDG_CONFIG_HOME}"/zsh/scripts/*.sh;
+    do source "$script";
+done
+
+export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+eval "$(oh-my-posh init zsh --config ~/.config/zsh/oh-my-posh.json)"

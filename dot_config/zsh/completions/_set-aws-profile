@@ -1,0 +1,8 @@
+#compdef _set-aws-profile set-aws-profile
+function _set-aws-profile() {
+    if (( CURRENT == 2 )); then
+        local profiles
+        profiles=$(grep '^\[.*\]' ~/.aws/credentials | sed 's/^\[\(.*\)\]$/\1/')
+        compadd -- ${=profiles}
+    fi
+}

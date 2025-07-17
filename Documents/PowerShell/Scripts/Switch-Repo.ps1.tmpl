@@ -1,0 +1,104 @@
+$RepoModule = New-Module -ScriptBlock {
+    $reposDir = "{{ .reposDir | replace " / " "\\" | printf "%s\\" }}"
+    $companyDirs = @("Tcetra")
+
+    function Get-ExcludedChildren {
+        param (
+            [string]$baseDir
+        )
+        $excluded = Get-ChildItem -Path $baseDir -Directory | Select-Object -ExpandProperty FullName
+        foreach ($companyDir in $companyDirs) {
+            $companyPath = Join-Path $baseDir $companyDir
+            if (Test-Path $companyPath) {
+                $excluded += Get-ChildItem -Path $companyPath -Directory | Select-Object -ExpandProperty FullName
+            }
+        }
+        return $excluded
+    }
+
+    function Get-IncludedChildren {
+        param (
+            [string]$baseDir,
+            [string[]]$exclusions
+        )
+        return Get-ChildItem -Path $baseDir -Directory -Recurse -Depth 1 |
+            Where-Object { $exclusions -notcontains $_.FullName }
+    }
+
+    function Switch-Repo {
+        param(
+            [string]$name,
+            [string]$b,
+            [switch]$m
+        )
+
+        $repo = Get-Repo $name
+        if ($repo) {
+            Set-Location -Path $repo.FullName
+
+            if ($m) {
+                $b = "master"
+            }
+
+            if ($b) {
+                git checkout $b -q
+            }
+        }
+        else {
+            Write-Host "Repo '$name' not found" -ForegroundColor Red
+        }
+    }
+
+    function Search-Repos {
+        param(
+            [string]$name
+        )
+
+        $excludedChildren = Get-ExcludedChildren $reposDir
+        $includedChildren = Get-IncludedChildren $reposDir -exclusions $excludedChildren
+        foreach ($companyDir in $companyDirs) {
+            $companyExcluded = Get-ExcludedChildren ("$reposDir$companyDir")
+            $includedChildren = @($includedChildren) + @(Get-IncludedChildren ("$reposDir$companyDir") -exclusions $companyExcluded)
+        }
+
+        $repos = $includedChildren | Where-Object { $_.Name -like "*$name*" }
+
+        return $repos
+    }
+
+    function Get-Repo {
+        param (
+            [string]$name
+        )
+
+        $excludedChildren = Get-ExcludedChildren $reposDir
+        $includedChildren = Get-IncludedChildren $reposDir -exclusions $excludedChildren
+        foreach ($companyDir in $companyDirs) {
+            $companyExcluded = Get-ExcludedChildren ("$reposDir$companyDir")
+            $includedChildren = @($includedChildren) + @(Get-IncludedChildren ("$reposDir$companyDir") -exclusions $companyExcluded)
+        }
+
+        $repos = $includedChildren | Where-Object { $_.Name -eq $name }
+
+        if ($repos -and $repos.Count -gt 0) {
+            return $repos[0]
+        }
+
+        return $null
+    }
+
+    Export-ModuleMember -Function Switch-Repo, Search-Repos
+}
+
+Import-Module $RepoModule
+
+$sb = {
+    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+    Search-Repos $wordToComplete | Select-Object -ExpandProperty Name
+}
+
+Register-ArgumentCompleter -CommandName repo -ParameterName name -ScriptBlock $sb
+Register-ArgumentCompleter -CommandName Switch-Repo -ParameterName name -ScriptBlock $sb
+
+Set-Alias repo Switch-Repo
+Set-Alias r Switch-Repo

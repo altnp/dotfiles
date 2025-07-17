@@ -5,15 +5,25 @@ Set-Alias -Name py -Value python;
 function gho { gh browse @args }
 
 if (-not (Test-Path Variable:PSise)) {
-    # Only run this in the console and not in the ISE
-    Import-Module Get-ChildItemColor
     Remove-Item Alias:ls -ErrorAction SilentlyContinue
-
-    function l {
-        Get-ChildItemColor -HumanReadableSize -Force $Args[0]
+    if (Get-Command eza -ErrorAction SilentlyContinue) {
+        function l {
+            eza -la --group-directories-first --icons $Args
+        }
+        function ls {
+            eza -a --group-directories-first --icons $Args
+        }
+        function lt {
+            eza -a -T --group-directories-first --color=auto --level 3 --icons $Args
+        }
     }
-
-    function ls {
-        Get-ChildItemColorFormatWide -TrailingSlashDirectory -Force @args
+    else {
+        Import-Module Get-ChildItemColor
+        function l {
+            Get-ChildItemColor -HumanReadableSize -Force $Args[0]
+        }
+        function ls {
+            Get-ChildItemColorFormatWide -TrailingSlashDirectory -Force @args
+        }
     }
 }

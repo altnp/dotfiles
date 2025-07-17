@@ -1,0 +1,33 @@
+#!/bin/zsh
+alias py=python
+alias python=python3
+alias tf=terraform
+alias k8s=kubectl
+alias azo='az-open'
+alias gho='gh browse'
+alias repo='invoke-repo'
+alias r='invoke-repo'
+alias wget="wget --hsts-file='${XDG_CACHE_HOME}/wget-hsts'"
+#alias fzf='fzf-tmux -p80%,60%'
+
+alias _ls='command ls -A --color=auto'
+alias l='eza -la --group-directories-first --color=auto --icons'
+alias ls='eza -a --group-directories-first --color=auto --icons'
+alias lt='eza -a -T --group-directories-first --color=auto --level 3 --icons'
+
+alias cat='bat --style=plain --paging=never'
+
+az() {
+    local _old_warn_set=0
+    if [[ -n "${PYTHONWARNINGS+x}" ]]; then
+        _old_warn_set=1
+        local _old_warn="$PYTHONWARNINGS"
+    fi
+    export PYTHONWARNINGS="ignore"
+    command az "$@"
+    if [[ $_old_warn_set -eq 1 ]]; then
+        export PYTHONWARNINGS="$_old_warn"
+    else
+        unset PYTHONWARNINGS
+    fi
+}

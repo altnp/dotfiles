@@ -2,6 +2,8 @@ README.md
 {{- if eq .chezmoi.os "windows" }}
 .config/bash/
 .config/git/
+.config/zsh/
+.config/terraform/
 .bashrc
 .profile
 .hushlogin
