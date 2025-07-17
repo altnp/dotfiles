@@ -1,0 +1,221 @@
+let mapleader=" "
+
+set scrolloff=7
+set relativenumber
+
+set showmode
+set showcmd
+set visualbell
+set lookupkeys=<Tab>,<Down>,<Up>,<Enter>,<Left>,<Right>,<C-K>,<C-J>
+
+set clipboard+=unnamed
+
+" set iskeyword+=...
+set gdefault
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+set timeoutlen=500
+
+inoremap jj <Esc>
+cnoremap jj <Esc>
+
+nnoremap k gk
+nnoremap j gj
+nnoremap H ^
+nnoremap L $
+nnoremap H ^
+xnoremap H ^
+xnoremap L $
+onoremap L $
+onoremap H ^
+nnoremap J 10gj
+nnoremap K 10gk
+xnoremap J 10gj
+xnoremap K 10gk
+
+nnoremap U <C-r>
+
+nnoremap <M-i> :action Back<CR>
+nnoremap <M-o> :action Forward<CR>
+
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+nnoremap <C-s> :w<CR>
+nnoremap <C-S-s> :wa<CR>
+inoremap <C-s> <Esc>:w<CR>
+inoremap <C-S-s> <Esc>:wa<CR>
+nnoremap <C-w> :q<CR>
+
+nnoremap <M-S-j> <C-w>j
+nnoremap <M-S-k> <C-w>k
+nnoremap <M-S-h> <C-w>h
+nnoremap <M-S-l> <C-w>l
+nnoremap <M-N> :tabn<CR>
+nnoremap <M-p> :tabp<CR>
+
+nnoremap <M-k> :action MoveLineUp<CR>
+nnoremap <M-j> :action MoveLineDown<CR>
+xnoremap <M-k> :action MoveLineUp<CR>
+xnoremap <M-j> :action MoveLineDown<CR>
+
+nnoremap Y y$
+nnoremap x "_x
+nnoremap X "_X
+nnoremap d "_d
+nnoremap dd "_dd
+nnoremap D "_D
+nnoremap c "_c
+nnoremap cc "_cc
+nnoremap C "_C
+nnoremap m d
+nnoremap mm dd
+nnoremap M D
+xnoremap d "_d
+xnoremap c "_c
+xnoremap x "_x
+xnoremap m d
+xnoremap p "_dP
+xnoremap <C-c> y
+xnoremap <BS> d
+
+nnoremap c\* \*``cgn
+
+nnoremap <CR> o<Esc>
+nnoremap <S-CR> O<Esc>
+
+nnoremap vv V
+
+nnoremap gUiw mzgUiw`z
+nnoremap guiw mzguiw`z
+
+sethandler <Tab> n:ide i-v:vim
+sethandler <S-Tab> n-i:ide v:vim
+sethandler <c-n> n-i:ide v:vim
+sethandler <c-p> n-i:ide v:vim
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+vnoremap <c-n> :action NextTemplateVariable<CR>
+vnoremap <c-p> :action PreviousTemplateVariable<CR>
+
+nnoremap g<Esc> :noh<CR>
+
+inoremap <C-q> <nop>
+nnoremap <C-q> <nop>,
+nnoremap Q <nop>
+
+""
+nnoremap <leader>rr :action RenameElement<CR>
+nnoremap <leader>R :action RefactoringMenu<CR>
+
+nnoremap [f :action MethodUp<CR>
+nnoremap ]f :action MethodDown<CR>
+
+nnoremap gd :action GotoDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gr :action FindUsages<CR>
+nnoremap gh :action ShowHoverInfo<CR>
+nnoremap gpi :action QuickImplementations<CR>
+nnoremap gt :action GotoTypeDeclaration<CR>
+
+nnoremap <C-k> K
+nnoremap ]d :action GotoNextError<CR>
+nnoremap [d :action GotoPreviousError<CR>
+nnoremap <leader>fm :action ReformatCode<CR>
+nnoremap <C-l> :action ShowErrorDescription<CR>
+
+nnoremap <leader>n :action NewFile<CR>
+
+nnoremap z<CR> :action ExpandCollapseToggleAction<CR>
+nnoremap zo :action ExpandAllRegions<CR>
+nnoremap zm :action CollapseAllRegions<CR>
+
+nnoremap <leader>b :action ToggleLineBreakpoint<CR>
+
+" Plugins set commentary
+nnoremap <leader>/ :action CommentByLineComment<CR>
+xnoremap <leader>/ :action CommentByLineComment<CR>
+
+nnoremap <leader>= `[v`]=
+nnoremap == :action AutoIndentLines<CR>
+xnoremap = :action AutoIndentLines<CR>
+
+set ideajoin
+nnoremap <leader>j J
+xnoremap <leader>j J
+
+nmap <leader>ff :action GotoFile<CR>
+
+set highlightedyank
+let g:highlightedyank_highlight_duration = "100"
+let g:highlightedyank_highlight_color = "rgba(38, 69, 120, 170)"
+
+set NERDTree
+nnoremap <leader>e :NERDTreeFocus<CR>
+let g:NERDTreeMapActivateNode = '<CR>'
+let g:NERDTreeMapPreview = ''
+let g:NERDTreeMapOpenInTab = ''
+let g:NERDTreeMapOpenInTabSilent = ''
+let g:NERDTreeMapOpenSplit = '\'
+let g:NERDTreeMapPreviewSplit = ''
+let g:NERDTreeMapOpenVSplit = '|'
+let g:NERDTreeMapPreviewVSplit = ''
+let g:NERDTreeMapOpenRecursively = 'zo'
+let g:NERDTreeMapCloseDir = ''
+let g:NERDTreeMapCloseChildren = 'zm'
+let g:NERDTreeMapJumpRoot = ''
+let g:NERDTreeMapJumpParent = ''
+let g:NERDTreeMapJumpFirstChild = ''
+let g:NERDTreeMapJumpLastChild = ''
+let g:NERDTreeMapJumpNextSibling = ''
+let g:NERDTreeMapJumpPrevSibling = ''
+let g:NERDTreeMapRefresh = ''
+let g:NERDTreeMapRefreshRoot = ''
+let g:NERDTreeMapMenu = ''
+let g:NERDTreeMapQuit = 'q'
+let g:NERDTreeMapToggleZoom = ''
+
+set surround
+nmap S <Plug>YSurround
+
+set textobj-entire
+nmap <leader>a vae
+
+set matchit
+
+set ReplaceWithRegister
+nmap <leader>r <Plug>ReplaceWithRegisterOperator
+
+nnoremap <leader>tr :action RiderUnitTestRunContextAction<CR>
+nnoremap <leader>td :action RiderUnitTestDebugContextAction<CR>
+
+nnoremap <leader>ff :action GotoFile<CR>
+nnoremap <leader>fg :action FindInPath<CR>
+nnoremap <leader>fs :action GotoSymbol<CR>
+nnoremap <leader>: :action GotoAction<CR>
+
+nnoremap <leader>fm :action ReformatCode<CR>
+
+nnoremap gD :action GotoDeclaration<CR>
+
+" Selection operations (from your VS Code config)
+nmap vv vLh
+
+nnoremap <leader>BD :action Debugger.RemoveAllBreakpoints<CR>
+
+nnoremap <leader>ru :action OptimizeImports<CR>
+
+nnoremap [g :action VcsShowPrevChangeMarker<CR>
+nnoremap ]g :action VcsShowNextChangeMarker<CR>
+
+nnoremap z<CR> :action ExpandCollapseToggleAction<CR>
+nnoremap zm :action CollapseAllRegions<CR>
+nnoremap zo :action ExpandAllRegions<CR>
+
+nnoremap \ :action SplitHorizontally<CR>
+nnoremap \| :action SplitVertically<CR>
+
+nmap <leader>v HvLh
