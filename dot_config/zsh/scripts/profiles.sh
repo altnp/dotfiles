@@ -7,8 +7,8 @@ function load-profile {
 
     local profileName="$1"
     local dir=""
-    if [[ -n "$XDG_DATA_HOME" && -d "$XDG_DATA_HOME/envs" ]]; then
-        dir="$XDG_DATA_HOME/envs"
+    if [[ -n "$XDG_CONFIG_HOME" && -d "$XDG_CONFIG_HOME/envs" ]]; then
+        dir="$XDG_CONFIG_HOME/envs"
     else
         dir="$HOME/.envs"
     fi
@@ -20,7 +20,7 @@ function load-profile {
         while IFS='=' read -r key value || [ -n "$key" ]; do
             export "$key=$value"
             echo "Loaded $key"
-        done < "$profilePath"
+        done <"$profilePath"
         export LOADED_ENV_PROFILE="$profileName"
     else
         echo "Profile: \"$profileName\" Not Found" >&2
@@ -29,8 +29,8 @@ function load-profile {
 
 function unload-profile {
     local dir=""
-    if [[ -n "$XDG_DATA_HOME" && -d "$XDG_DATA_HOME/envs" ]]; then
-        dir="$XDG_DATA_HOME/envs"
+    if [[ -n "$XDG_CONFIG_HOME" && -d "$XDG_CONFIG_HOME/envs" ]]; then
+        dir="$XDG_CONFIG_HOME/envs"
     else
         dir="$HOME/.envs"
     fi
@@ -39,7 +39,7 @@ function unload-profile {
         if [[ -f "$prevProfilePath" ]]; then
             while IFS='=' read -r key _ || [ -n "$key" ]; do
                 unset "$key"
-            done < "$prevProfilePath"
+            done <"$prevProfilePath"
         fi
         unset LOADED_ENV_PROFILE
     fi
