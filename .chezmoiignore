@@ -22,7 +22,7 @@ Documents/
 .wslconfig
 {{- end }}
 {{- if (and (ne .chezmoi.os "windows") (not .ohMyPoshEnabled)) }}
-.config/bash/oh-my-posh.json
+.config/zsh/oh-my-posh.json
 {{- end }}
 
 {{/* WSL */}}
