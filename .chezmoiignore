@@ -4,6 +4,7 @@ README.md
 .config/git/
 .config/zsh/
 .config/terraform/
+.config/envs/
 .bashrc
 .profile
 .hushlogin
@@ -14,6 +15,7 @@ Documents/PowerShell/oh-my-posh.json
 
 {{- if ne .chezmoi.os "windows" }}
 .ahk/
+.envs/
 .gitscripts/
 .githooks/
 AppData/
@@ -27,4 +29,6 @@ Documents/
 
 {{/* WSL */}}
 {{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.kernel "osrelease") (contains "microsoft" .chezmoi.kernel.osrelease)) }}
+.aws/
+.ideavimrc
 {{- end }}
