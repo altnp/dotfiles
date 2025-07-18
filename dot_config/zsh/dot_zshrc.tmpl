@@ -7,6 +7,20 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+
+complete -C '/usr/sbin/aws_completer' aws
+
+zinit ice wait lucid
+zinit snippet OMZP::/terraform
+zinit ice wait lucid
+zinit light zsh-users/zsh-autosuggestions
+zinit ice wait lucid
+zinit light zsh-users/zsh-syntax-highlighting
+
+eval "$(zoxide init zsh)"
+
 eval "$(dircolors -b ~/.config/zsh/dircolors)"
 export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 export BAT_THEME="Visual Studio Dark+"
@@ -20,12 +34,10 @@ setopt pushdsilent
 setopt menu_complete
 unsetopt auto_list
 
-autoload -Uz compinit && compinit
-eval "$(zoxide init zsh)"
-
 . "${XDG_CONFIG_HOME}"/zsh/.zsh_aliases
 . "${XDG_CONFIG_HOME}"/zsh/.zsh_keybinds
 . "${XDG_CONFIG_HOME}"/zsh/.zsh_completions
+. "${XDG_CONFIG_HOME}"/zsh/.zsh_highlights
 for script in "${XDG_CONFIG_HOME}"/zsh/scripts/*.sh; do
     source "$script"
 done
