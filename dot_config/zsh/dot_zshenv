@@ -9,7 +9,6 @@ export SAVEHIST=10000
 export LESS="-R -M -i -j3 -F"
 
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
-export ANDROID_HOME="$XDG_DATA_HOME/android"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export npm_config_cache="${XDG_CACHE_HOME}/npm"
