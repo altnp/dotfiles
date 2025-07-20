@@ -1,6 +1,7 @@
 Set-Alias -Name tf -Value terraform;
 Set-Alias -Name k8s -Value kubectl;
 Set-Alias -Name py -Value python;
+function rmrf { Remove-Item -Recurse -Force @args }
 
 function gho { gh browse @args }
 

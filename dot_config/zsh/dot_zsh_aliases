@@ -7,6 +7,7 @@ alias azo='az-open'
 alias gho='gh browse'
 alias repo='invoke-repo'
 alias r='invoke-repo'
+alias rmrf='rm -rf'
 alias wget="wget --hsts-file='${XDG_CACHE_HOME}/wget-hsts'"
 #alias fzf='fzf-tmux -p80%,60%'
 
