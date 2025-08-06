@@ -1,0 +1,14 @@
+{
+    "title": "Open with Code",
+    "exe": "\"C:\\Program Files\\Microsoft VS Code\\Code.exe\"",
+    "param": "\"{path}\"",
+    "icon": "\"C:\\Program Files\\Microsoft VS Code\\Code.exe\"",
+    "index": 1,
+    "acceptDirectory": true,
+    "acceptExts": "",
+    "acceptFileFlag": 2,
+    "acceptFileRegex": ".*",
+    "acceptMultipleFilesFlag": 0,
+    "pathDelimiter": "",
+    "paramForMultipleFiles": ""
+}
