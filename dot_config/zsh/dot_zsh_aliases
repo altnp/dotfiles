@@ -12,10 +12,9 @@ alias rmrf='rm -rf'
 alias wget="wget --hsts-file='${XDG_CACHE_HOME}/wget-hsts'"
 #alias fzf='fzf-tmux -p80%,60%'
 
-alias _ls='command ls -A --color=auto'
-alias l='eza -la --group-directories-first --color=auto --icons'
-alias ls='eza -a --group-directories-first --color=auto --icons'
-alias lt='eza -a -T --group-directories-first --color=auto --level 3 --icons'
+alias l='eza -la --group-directories-first --color=auto --icons=always'
+alias ls='eza -a --group-directories-first --color=auto --icons=always'
+alias lt='eza -a -T --group-directories-first --color=auto --level 3 --icons=always'
 
 alias cat='bat --style=plain --paging=never'
 
