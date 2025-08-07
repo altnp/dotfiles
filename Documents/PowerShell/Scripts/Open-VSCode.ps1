@@ -6,6 +6,9 @@ function Open-VSCode {
     )
 
     $vsCodePath = "C:\Program Files\Microsoft VS Code\bin\code.cmd"
+    if (-not (Test-Path $vsCodePath)) {
+        $vsCodePath = "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd"
+    }
 
     if ($Path) {
         # Resolve path to handle '~' and other special characters
