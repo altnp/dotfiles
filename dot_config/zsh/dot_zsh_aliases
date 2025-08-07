@@ -5,6 +5,7 @@ alias tf=terraform
 alias k8s=kubectl
 alias azo='az-open'
 alias gho='gh browse'
+alias ghc='gh copilot suggest'
 alias repo='invoke-repo'
 alias r='invoke-repo'
 alias rmrf='rm -rf'

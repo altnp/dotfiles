@@ -4,6 +4,7 @@ Set-Alias -Name py -Value python;
 function rmrf { Remove-Item -Recurse -Force @args }
 
 function gho { gh browse @args }
+function ghc { gh copilot suggest @args }
 
 if (-not (Test-Path Variable:PSise)) {
     Remove-Item Alias:ls -ErrorAction SilentlyContinue
