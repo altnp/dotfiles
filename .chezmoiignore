@@ -9,9 +9,6 @@ README.md
 .profile
 .hushlogin
 {{- end }}
-{{- if (and (eq .chezmoi.os "windows") (not .ohMyPoshEnabled)) }}
-Documents/PowerShell/oh-my-posh.json
-{{- end }}
 
 {{- if ne .chezmoi.os "windows" }}
 .ahk/
@@ -22,9 +19,6 @@ AppData/
 Documents/
 .gitconfig
 .wslconfig
-{{- end }}
-{{- if (and (ne .chezmoi.os "windows") (not .ohMyPoshEnabled)) }}
-.config/zsh/oh-my-posh.json
 {{- end }}
 
 {{/* WSL */}}

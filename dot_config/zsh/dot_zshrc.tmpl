@@ -50,9 +50,7 @@ export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-{{ if .ohMyPoshEnabled -}}
 eval "$(oh-my-posh init zsh --config ~/.config/zsh/oh-my-posh.json)"
-{{- end }}
 
 {{ if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.kernel "osrelease") (contains "microsoft" .chezmoi.kernel.osrelease)) -}}
 export WIN_HOME=$(wslpath "$(pwsh.exe -NoProfile -Command '[Environment]::GetFolderPath("UserProfile")' | tr -d '\r')")

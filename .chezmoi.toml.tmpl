@@ -11,14 +11,12 @@
 
 {{- $useSSHTcetraAzDo := promptBool "Use SSH when cloning TCETRA repos from Azure Devops" -}}
 
-{{- $ohMyPoshEnabled := promptBool "Enable OH-MY-POSH with a prebuilt theme" -}}
 
 [data]
 name = {{ $name | quote }}
 email = {{ $email | quote }}
 workEmail = {{ $workEmail | quote }}
 reposDir = {{ $reposdir | quote }}
-ohMyPoshEnabled = {{ $ohMyPoshEnabled }}
 useSSHTcetraAzDo = {{ $useSSHTcetraAzDo }}
 
 [edit]

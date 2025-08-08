@@ -31,12 +31,10 @@ Import-Module npm-completion
 Import-Module WSLTabCompletion
 
 # Prompt
-{{- if .ohMyPoshEnabled }}
 if ($Env:WT_SESSION -or $Env:TERM_PROGRAM -eq "vscode") {
     $env:POSH_GIT_ENABLED = $true
     oh-my-posh init pwsh --config "$(Split-Path $profile)\oh-my-posh.json" | Invoke-Expression;
 }
-{{- end }}
 
 Set-PSReadLineOption -Colors @{
     Parameter = 'green';
