@@ -10,6 +10,7 @@ alias repo='invoke-repo'
 alias r='invoke-repo'
 alias rmrf='rm -rf'
 alias wget="wget --hsts-file='${XDG_CACHE_HOME}/wget-hsts'"
+alias bwul='export BW_SESSION=$(bw unlock --raw)'
 #alias fzf='fzf-tmux -p80%,60%'
 
 alias l='eza -la --group-directories-first --color=auto --icons=always'

@@ -1,0 +1,12 @@
+Host errorserv
+    HostName errorserv.local
+    User admin
+
+{{ if .personal -}}
+Host pps
+    HostName app-inst01.ppdtechnologyportal.com
+    User ubuntu
+    IdentityFile ~/.ssh/pps-prod.pem
+    IdentitiesOnly yes
+    LocalForward 0.0.0.0:5432 db.ppdtechnologyportal.com:5432
+{{- end }}

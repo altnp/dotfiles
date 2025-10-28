@@ -1,19 +1,74 @@
 #!/usr/bin/env bash
-remote=$(git remote -v | awk '/\(push\)$/ {print $2}')
+remote=$(git remote -v | awk '/\(push\)$/ {print $2; exit}')
 email='{{ .email }}' # default
 name='{{ .name }}'
 
-if [[ $remote == *github.com* ]]; then
-  echo "Configuring for GitHub Remote Repo:"
-  email={{ .email }}
-elif [[ $remote == *dev.azure.com/tcetra* ]]; then
-  echo "Configuring for T-Cetra AzureDevops Remote Repo:"
-  email={{ .workEmail }}
-elif [[ $remote == *ssh.dev.azure.com:v3/tcetra* ]]; then
-  echo "Configuring for T-Cetra AzureDevops Remote Repo:"
-  email={{ .workEmail }}
+get_org_from_remote() {
+  local url="$1"
+  [[ -z $url ]] && return 1
+
+  url=${url,,}
+  url="${url%.git}"
+
+  if [[ $url == ssh://* ]]; then
+    url="${url#ssh://}"
+  fi
+
+  # GitHub SSH: git@github.com:org/repo
+  if [[ $url =~ ^git@github\.com:([^/]+)/ ]]; then
+    printf '%s\n' "${BASH_REMATCH[1]}"
+    return 0
+  fi
+
+  # GitHub HTTP(S) (with or without embedded credentials)
+  if [[ $url =~ ^https?://[^/]*github\.com/([^/]+)/ ]]; then
+    printf '%s\n' "${BASH_REMATCH[1]}"
+    return 0
+  fi
+
+  # GitHub SSH alternate: git@github.com/org/repo
+  if [[ $url =~ ^git@github\.com/([^/]+)/ ]]; then
+    printf '%s\n' "${BASH_REMATCH[1]}"
+    return 0
+  fi
+
+  # Azure DevOps SSH: git@ssh.dev.azure.com(:port)?[:/]+v3/org/project/repo
+  if [[ $url =~ ^git@ssh\.dev\.azure\.com(:[0-9]+)?[/:]+v3/([^/]+)/ ]]; then
+    printf '%s\n' "${BASH_REMATCH[2]}"
+    return 0
+  fi
+
+  # Azure DevOps HTTP(S) with embedded credentials: https://user@dev.azure.com/org/project/_git/repo
+  if [[ $url =~ ^https?://[^@/]+@dev\.azure\.com/([^/]+)/ ]]; then
+    printf '%s\n' "${BASH_REMATCH[1]}"
+    return 0
+  fi
+
+  # Azure DevOps HTTP(S): https://dev.azure.com/org/project/_git/repo
+  if [[ $url =~ ^https?://dev\.azure\.com/([^/]+)/ ]]; then
+    printf '%s\n' "${BASH_REMATCH[1]}"
+    return 0
+  fi
+
+  return 1
+}
+
+org=$(get_org_from_remote "$remote")
+
+if [[ -n $org ]]; then
+  org=${org,,}
+  echo "Detected organization: $org"
+  case "$org" in
+    "yipit")
+      echo "Configuring for Yipit."
+      email='{{ .workEmail }}'
+      ;;
+    *)
+      echo "No matching organization, using default email."
+      ;;
+  esac
 else
-  echo "Using defaults:"
+  echo "Unable to detect organization from remote, using default email."
 fi
 
 echo "Configuring user.email as $email"

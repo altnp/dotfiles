@@ -26,3 +26,9 @@ Documents/
 .aws/
 .ideavimrc
 {{- end }}
+
+{{- if not .personal }}
+.ssh/pps-prod.pem
+.envs/pps.env
+.config/pps.env
+{{- end }}

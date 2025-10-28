@@ -1,4 +1,4 @@
-#!bin/zsh
+#!/bin/zsh
 function az-open {
     local line
     line=$(git remote -v | head -n1)
