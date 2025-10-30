@@ -51,6 +51,12 @@ eval "$(gdircolors -b ~/.config/zsh/dircolors)"
 export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 export BAT_THEME="Visual Studio Dark+"
 
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_find_no_dups
+setopt hist_save_no_dups
 setopt correct
 setopt extendedglob
 setopt globdots
