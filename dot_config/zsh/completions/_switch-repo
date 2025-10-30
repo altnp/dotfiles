@@ -2,5 +2,7 @@
 function _switch-repo() {
     local word
     word="$words[CURRENT]"
-    compadd -- $(search-repos "$word")
+    if [[ $CURRENT -eq 2 ]]; then
+        compadd -- $(search-repos "$word")
+    fi
 }
