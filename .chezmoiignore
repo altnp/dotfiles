@@ -21,6 +21,10 @@ Documents/
 .wslconfig
 {{- end }}
 
+{{- if ne .chezmoi.os "darwin" }}
+./config/karabiner
+{{- end}}
+
 {{/* WSL */}}
 {{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.kernel "osrelease") (contains "microsoft" .chezmoi.kernel.osrelease)) }}
 .aws/

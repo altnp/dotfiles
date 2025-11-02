@@ -82,7 +82,6 @@ export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 eval "$(pyenv init - zsh)"
 {{ if eq .chezmoi.os "darwin" -}}
 eval "$(jenv init -)"
-jenv enable-plugin export
 {{- end }}
 
 eval "$(oh-my-posh init zsh --config ~/.config/zsh/oh-my-posh.json)"
