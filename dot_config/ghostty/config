@@ -1,0 +1,18 @@
+font-family = FiraCode Nerd Font Mono
+font-size = 14
+theme = vscode-modern
+bold-color = black
+background-opacity = 0.92
+background-blur = true
+cursor-style = underline
+link-url = true
+link-previews = false
+right-click-action = copy-or-paste
+quit-after-last-window-closed = true
+shell-integration-features = no-title,ssh-env,ssh-terminfo,path,no-cursor,sudo
+# keybind = global:ctrl+grave_accent=toggle_quick_terminal
+bell-features = no-audio,no-title
+macos-titlebar-proxy-icon = hidden
+auto-update = download
+adjust-cell-height = 20%
+adjust-cursor-height = 20%

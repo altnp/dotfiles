@@ -1,0 +1,28 @@
+# Dark Modern
+
+# 0–7 normal
+palette = 0=#1F1F1F
+palette = 1=#F14C4C
+palette = 2=#6A9955
+palette = 3=#D9B041
+palette = 4=#026EC1
+palette = 5=#7F6AC1
+palette = 6=#4EC9B0
+palette = 7=#F8F8F8
+
+# 8–15 bright
+palette = 8=#313131
+palette = 9=#D16969
+palette = 10=#86C691
+palette = 11=#F8EA6B
+palette = 12=#3399CC
+palette = 13=#C586C0
+palette = 14=#4EC9B0
+palette = 15=#F8F8F8
+
+background = #1E1E1E
+foreground = #FFFFFF
+cursor-color = #FFFFFF
+cursor-text = #1E1E1E
+selection-background = #264F78
+selection-foreground = #FFFFFF

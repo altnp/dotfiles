@@ -79,6 +79,12 @@ export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+{{ if eq .chezmoi.os "darwin" -}}
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+  source $GHOSTTY_RESOURCES_DIR/shell-integration/zsh/ghostty-integration
+fi
+{{- end }}
+
 eval "$(pyenv init - zsh)"
 {{ if eq .chezmoi.os "darwin" -}}
 eval "$(jenv init -)"
