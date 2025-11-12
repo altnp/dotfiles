@@ -14,9 +14,10 @@ alias bwul='export BW_SESSION=$(bw unlock --raw)'
 #alias fzf='fzf-tmux -p80%,60%'
 alias ff='fastfetch'
 
-alias l='eza -la --group-directories-first --color=auto --icons=always'
-alias ls='eza -a --group-directories-first --color=auto --icons=always'
-alias lt='eza -a -T --group-directories-first --color=auto --level 3 --icons=always'
+alias lls='command ls'
+alias l='eza -la --group-directories-first --color=auto --icons=always -I=".DS_Store"'
+alias ls='eza -a --group-directories-first --color=auto --icons=always -I=".DS_Store"'
+alias lt='eza -a -T --group-directories-first --color=auto --level 3 --icons=always -I=".DS_Store'
 
 alias cat='bat --style=plain --paging=never'
 
