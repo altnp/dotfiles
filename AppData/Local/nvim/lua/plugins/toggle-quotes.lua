@@ -1,1 +1,0 @@
-/Users/altnp/.local/share/chezmoi/dot_config/nvim/lua/plugins/toggle-quotes.lua
