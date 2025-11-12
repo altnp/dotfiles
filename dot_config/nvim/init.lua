@@ -1,0 +1,6 @@
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+require 'options'
+require 'lazyinit'
+require 'mappings'
+require 'autocmds'

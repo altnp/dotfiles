@@ -1,0 +1,4 @@
+{
+  "Lua.workspace.library": ["/Users/altnp/.local/share/nvim/lazy"],
+  "Lua.diagnostics.globals": ["vim", "vscode"]
+}

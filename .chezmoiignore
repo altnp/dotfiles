@@ -5,6 +5,7 @@ README.md
 .config/zsh/
 .config/terraform/
 .config/envs/
+.config/nvim/
 .bashrc
 .profile
 .hushlogin
@@ -22,8 +23,9 @@ Documents/
 {{- end }}
 
 {{- if ne .chezmoi.os "darwin" }}
-./config/karabiner
-./config/ghostty
+.config/karabiner
+.config/ghostty
+Library/
 {{- end}}
 
 {{/* WSL */}}
