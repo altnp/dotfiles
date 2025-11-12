@@ -1,0 +1,1 @@
+/Users/altnp/.local/share/chezmoi/dot_config/nvim/lua/mappings/vscode.lua
