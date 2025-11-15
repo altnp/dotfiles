@@ -6,6 +6,7 @@ README.md
 .config/terraform/
 .config/envs/
 .config/nvim/
+.config/tmux/
 .bashrc
 .profile
 .hushlogin
