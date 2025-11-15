@@ -1,7 +1,6 @@
 return {
   {
     'echasnovski/mini.move',
-    -- cond = not vim.g.vscode,
     keys = {
       { '<M-k>', mode = 'n', desc = 'Move line up' },
       { '<M-j>', mode = 'n', desc = 'Move line down' },

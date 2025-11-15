@@ -35,20 +35,20 @@ map('n', 'U', '<C-r>', { desc = 'Redo' })
 map('n', 'u', 'u', { desc = 'Undo' })
 
 -- Save
-map({ 'n' }, '<C-s>', '<cmd>w<CR>')
-map({ 'i' }, '<C-s>', '<cmd>w<CR><esc>')
+map({ 'n' }, '<C-s>', '<CMD>w<CR>')
+map({ 'i' }, '<C-s>', '<CMD>w<CR><esc>')
 
 -- Formatting
 map('n', '<leader>=', '`[v`]=', { desc = 'Format last paste' })
 map('x', '<Tab>', '>gv', { desc = 'Shift selection right', remap = true })
 map('x', '<S-Tab>', '<gv', { desc = 'Shift selection left', remap = true })
+map('n', '<S-Tab>', '<<H', { desc = 'Shift line left', remap = true })
 
 -- Copy/Paste
 map('x', 'p', '"_dP', { desc = 'Paste without overwrite' })
 
 -- Visual Mode
-map({ 'n' }, 'vv', 'v<S-l>h', { desc = 'Visual end of line', remap = true })
-map({ 'n' }, '<leader>v', '<S-h>v<S-l>h', { desc = 'Visual current line', remap = true })
+map({ 'n' }, '<leader>v', '^v$h', { desc = 'Visual current line' })
 
 -- NoOp
 map('n', 'Q', '<nop>', { desc = '' })

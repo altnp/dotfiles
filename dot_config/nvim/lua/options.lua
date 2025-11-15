@@ -1,11 +1,19 @@
 local opt = vim.opt
 local g = vim.g
 
-vim.opt_local.number = true
+opt.number = true
+opt.relativenumber = true
+opt.fillchars = {
+  eob = ' ',
+}
 
 opt.clipboard = 'unnamedplus'
 opt.termguicolors = true
 opt.undofile = true
+
+if not vim.g.vscode then
+  opt.showmode = false
+end
 
 opt.ignorecase = true
 opt.smartcase = true

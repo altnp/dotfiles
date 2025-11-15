@@ -10,13 +10,6 @@ local map = function(mode, lhs, rhs, opts)
 end
 
 -- Windows & buffers
-map('n', '<leader>|', function()
-  vscode.call 'workbench.action.moveEditorToNextGroup'
-end, { desc = '', remap = true })
-map('n', '<leader>\\', function()
-  vscode.call 'workbench.action.moveEditorToBelowGroup'
-end, { desc = '', remap = true })
-
 map('n', '<leader>n', function()
   vscode.call 'workbench.action.files.newUntitledFile'
 end, { desc = 'New File' })
@@ -199,6 +192,17 @@ end, { desc = 'Emmet wrap', remap = true })
 -- Agents
 map({ 'n', 'x' }, '<leader>c', function()
   vscode.action 'inlineChat.start'
+end)
+
+-- Notebooks
+map({ 'n' }, 'DD', function()
+  vscode.action 'notebook.cell.delete'
+end)
+map({ 'n' }, '<leader>nr', function()
+  vscode.action 'notebook.execute'
+end)
+map({ 'n' }, '<leader>nx', function()
+  vscode.action 'jupyter.restartkernel'
 end)
 
 -- Misc
