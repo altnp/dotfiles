@@ -17,7 +17,7 @@ alias ff='fastfetch'
 alias lls='command ls'
 alias l='eza -la --group-directories-first --color=auto --icons=always -I=".DS_Store"'
 alias ls='eza -a --group-directories-first --color=auto --icons=always -I=".DS_Store"'
-alias lt='eza -a -T --group-directories-first --color=auto --level 3 --icons=always -I=".DS_Store'
+alias lt='eza -a -T --group-directories-first --color=auto --level 3 --icons=always -I=".DS_Store"'
 
 alias cat='bat --style=plain --paging=never'
 

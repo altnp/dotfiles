@@ -37,6 +37,5 @@ Library/
 
 {{- if not .personal }}
 .ssh/pps-prod.pem
-.envs/pps.env
-.config/pps.env
+.config/envs/pps.env
 {{- end }}
