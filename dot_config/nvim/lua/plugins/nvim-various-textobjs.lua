@@ -13,6 +13,7 @@ return {
     { 'as', '<cmd>lua require("various-textobjs").subword("outter")<CR>', mode = { 'o', 'x' } },
     { 'iq', '<cmd>lua require("various-textobjs").anyQuote("inner")<CR>', mode = { 'o', 'x' } },
     { 'aq', '<cmd>lua require("various-textobjs").anyQuote("outter")<CR>', mode = { 'o', 'x' } },
+    { 'C', '<cmd>lua require("various-textobjs").toNextClosingBracket()<CR>', mode = { 'o', 'x' } },
     { 'n', '<cmd>lua require("various-textobjs").nearEoL()<CR>', mode = { 'o', 'x' } },
   },
 }
