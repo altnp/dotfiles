@@ -5,7 +5,14 @@ return {
   cond = not vim.g.vscode,
   config = function()
     local vscode = require 'vscode'
-    vscode.setup { transparent = true }
+    vscode.setup {
+      transparent = true,
+      color_overrides = {},
+
+      group_overrides = {
+        StatusLine = { bg = 'none' },
+      },
+    }
     vscode.load()
   end,
 }
