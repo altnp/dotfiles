@@ -191,6 +191,11 @@ end, { desc = 'Emmet wrap', remap = true })
 
 -- Agents
 map({ 'n', 'x' }, '<leader>c', function()
+  if vscode.eval 'return vscode.env.appName' == 'Cursor' then
+    vscode.action 'aipopup.action.modal.generate'
+    return
+  end
+
   vscode.action 'inlineChat.start'
 end)
 
