@@ -32,8 +32,12 @@ autoload -Uz compinit && compinit
 complete -C '/usr/sbin/aws_completer' aws
 
 zinit ice wait lucid \
-    atinit'save_aliases=$(alias -L)' \
-    atload'unalias -m "*"; eval ${save_aliases}; unset save_aliases'
+  atinit'save_aliases=$(alias -L)' \
+  atload'unalias -m "*"; eval ${save_aliases}; unset save_aliases'
+zinit ice wait lucid \
+  atinit'save_aliases=$(alias -L)' \
+  atload'unalias -m "*"; eval ${save_aliases}; unset save_aliases'
+zinit light blimmer/zsh-aws-vault
 zinit snippet OMZP::/terraform
 zinit ice wait lucid
 zinit light zsh-users/zsh-autosuggestions
@@ -73,7 +77,7 @@ unsetopt auto_list
 . "${XDG_CONFIG_HOME}"/zsh/.zsh_completions
 . "${XDG_CONFIG_HOME}"/zsh/.zsh_highlights
 for script in "${XDG_CONFIG_HOME}"/zsh/scripts/*.sh; do
-    source "$script"
+  source "$script"
 done
 
 export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
@@ -94,3 +98,6 @@ eval "$(oh-my-posh init zsh --config ~/.config/zsh/oh-my-posh.json)"
 {{ if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.kernel "osrelease") (contains "microsoft" .chezmoi.kernel.osrelease)) -}}
 export WIN_HOME=$(wslpath "$(pwsh.exe -NoProfile -Command '[Environment]::GetFolderPath("UserProfile")' | tr -d '\r')")
 {{- end }}
+if [[ -f "${XDG_CONFIG_HOME}/zsh/.zsh_local" ]]; then
+  source "${XDG_CONFIG_HOME}/zsh/.zsh_local"
+fi
