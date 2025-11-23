@@ -55,7 +55,7 @@ SwitchToWindowsTerminal()
 
 SwitchToBrowser()
 {
-  windowHandleId := WinExist("ahk_exe brave.exe")
+  windowHandleId := WinExist("ahk_exe arc.exe")
   windowExistsAlready := windowHandleId > 0
 
   ; If the Windows Terminal is already open, determine if we should put it in focus or minimize it.
@@ -80,7 +80,7 @@ SwitchToBrowser()
   ; Else it's not already open, so launch it.
   else
   {
-    Run, brave.exe
+    Run, arc.exe
     SendInput, !d
   }
 }
