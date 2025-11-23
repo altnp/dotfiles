@@ -22,13 +22,14 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export PYTHON_HISTORY="$XDG_STATE_HOME/python/history"
 export DOTNET_ROOT="/lib/dotnet"
 export TF_CLI_CONFIG_FILE="${XDG_CONFIG_HOME}/terraform/.terraformrc"
-{{ if eq .chezmoi.os "darwin" -}}
-export JENV_ROOT="$XDG_DATA_HOME/jenv"
 export ANDROID_HOME='/opt/android-sdk'
 export ANDROID_SDK_ROOT='/opt/android-sdk'
 export ANDROID_AVD_HOME=${XDG_CONFIG_HOME}/.android/avd/
 export PATH="${PATH}:${ANDROID_HOME}/platform-tools"
 export PATH="${PATH}:${ANDROID_HOME}/emulator"
+
+{{ if eq .chezmoi.os "darwin" -}}
+export JENV_ROOT="$XDG_DATA_HOME/jenv"
 {{- end }}
 {{ if ne .chezmoi.os "darwin" }}
 typeset -U PATH path
