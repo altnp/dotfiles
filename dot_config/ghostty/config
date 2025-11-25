@@ -1,7 +1,7 @@
 font-family = FiraCode Nerd Font Mono
 font-size = 14
 theme = vscode-modern
-bold-color = black
+bold-color = bright
 background-opacity = 0.92
 background-blur = true
 cursor-style = underline
