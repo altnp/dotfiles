@@ -3,7 +3,6 @@ Set-Alias -Name k8s -Value kubectl;
 Set-Alias -Name py -Value python;
 function rmrf { Remove-Item -Recurse -Force @args }
 
-function bwul { $env:BW_SESSION = $(bw unlock --raw) }
 function gho { gh browse @args }
 function ghc { gh copilot suggest @args }
 
