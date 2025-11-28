@@ -55,7 +55,7 @@ SwitchToWindowsTerminal()
 
 SwitchToBrowser()
 {
-  windowHandleId := WinExist("ahk_exe arc.exe")
+  windowHandleId := WinExist("ahk_exe chrome.exe")
   windowExistsAlready := windowHandleId > 0
 
   ; If the Windows Terminal is already open, determine if we should put it in focus or minimize it.
@@ -80,7 +80,7 @@ SwitchToBrowser()
   ; Else it's not already open, so launch it.
   else
   {
-    Run, arc.exe
+    Run, chrome.exe
     SendInput, !d
   }
 }
