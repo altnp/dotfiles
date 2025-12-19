@@ -98,7 +98,7 @@
                                 },
                                 "to": [
                                     {
-                                        "shell_command": "/bin/bash -lc '/usr/bin/open -a \"Zen\" && /usr/bin/osascript -e \"tell application \\\"System Events\\\" to keystroke \\\"l\\\" using command down\"'"
+                                        "shell_command": "/bin/bash -lc '/usr/bin/open -a \"Google Chrome\" && /usr/bin/osascript -e \"tell application \\\"System Events\\\" to keystroke \\\"l\\\" using command down\"'"
                                     }
                                 ],
                                 "type": "basic"
