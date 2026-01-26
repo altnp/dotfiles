@@ -14,6 +14,7 @@ permission:
     "gh api /search/code": allow
     "gh search *": allow
     "gh issue *": allow
+    "gh repo view*": allow
   webfetch: allow
   context7*: allow
   gh_grep*: "allow"

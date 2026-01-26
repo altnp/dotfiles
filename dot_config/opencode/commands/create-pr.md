@@ -20,11 +20,15 @@ You are tasked with generating a comprehensive pull request description followin
 
      {What problem's were solved, include ticket numbers if known}
 
-     ## User Impact
+      ## User Impact
 
-     {What user impacting changes are there}
+      {What user impacting changes are there}
 
-     ## Implementation Plan
+      ## Interface Changes
+
+      {Public API signature changes, DB schema changes, migrations, config changes, or contract updates}
+
+      ## Implementation Plan
 
      {Implementation plan followed with rational why backed by research}
 

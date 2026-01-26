@@ -52,6 +52,12 @@ Use best judgement when processing input.
 
 ## Review Passes
 
+### Review Depth by Diff Size
+
+- Under 200 lines: deep review across all passes
+- 200 to 500 lines: prioritize correctness and security, then key naming issues
+- Over 500 lines: focus on highest-risk areas and summarize the rest
+
 Perform separate passes in the order below. Each pass should focus only on the listed concerns.
 
 ### 1. Correctness and Bugs
@@ -122,6 +128,24 @@ If you're uncertain about something and can't verify it with these tools, say "I
 ---
 
 ## Output
+
+### Severity Scale
+
+- CRITICAL: data loss, security breach, or system outage risk
+- HIGH: user-facing bug or security gap with realistic impact
+- MEDIUM: correctness or maintainability issue with limited scope
+- LOW: minor issue, edge case, or cleanup suggestion
+- NIT: purely stylistic or optional improvement
+
+### Output Template
+
+Summary:
+
+Issues (grouped by severity):
+
+Tests:
+
+Suggestions:
 
 1. If there is a bug, be direct and clear about why it is a bug.
 2. Clearly communicate severity of issues. Do not overstate severity.
