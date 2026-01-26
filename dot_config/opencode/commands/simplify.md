@@ -1,5 +1,5 @@
 ---
-description: Simplify recent code changes with strict behavior preservation
+description: Simplify recent code changes while preserving behavior
 model: openai/gpt-5.2-codex
 subtask: false
 ---

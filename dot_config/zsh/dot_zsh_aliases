@@ -12,6 +12,7 @@ alias rmrf='rm -rf'
 alias wget="wget --hsts-file='${XDG_CACHE_HOME}/wget-hsts'"
 #alias fzf='fzf-tmux -p80%,60%'
 alias ff='fastfetch'
+alias ocl='opencode-limits'
 
 alias lls='command ls'
 alias l='eza -la --group-directories-first --color=auto --icons=always -I=".DS_Store"'

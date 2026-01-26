@@ -38,6 +38,9 @@ map('n', 'u', 'u', { desc = 'Undo' })
 map({ 'n' }, '<C-s>', '<CMD>w<CR>')
 map({ 'i' }, '<C-s>', '<CMD>w<CR><esc>')
 
+-- Editing
+map('i', '<M-BS>', '<C-w>', { desc = 'Delete word backward' })
+
 -- Formatting
 map('n', '<leader>=', '`[v`]=', { desc = 'Format last paste' })
 map('x', '<Tab>', '>gv', { desc = 'Shift selection right', remap = true })

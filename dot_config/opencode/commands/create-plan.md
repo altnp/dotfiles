@@ -14,9 +14,10 @@ You are tasked with creating detailed implementation plans through an interactiv
 When this command is invoked:
 
 1. **Check if parameters were provided**:
-   - If a file path or ticket identifier/link was provided as a parameter, skip the default message.
+   - If a file path was provided as a parameter, skip the default message.
    - Immediately read any provided files FULLY.
    - If a ticket identifier/link was provided, look it up in the tracker (Jira/Linear/GitHub).
+   - If no ticket was provided, proceed without one and do not assume a ticket exists.
    - Begin the research process.
 
 2. **If no parameters provided**, respond with:
@@ -25,7 +26,7 @@ When this command is invoked:
 I'll help you create a detailed implementation plan. Let me start by understanding what we're building.
 
 Please provide:
-1. The task/ticket description (or a ticket ID/link)
+1. The task description (ticket ID/link optional)
 2. Any relevant context, constraints, or specific requirements
 3. Links to related research or previous implementations
 
@@ -42,7 +43,7 @@ Then wait for the user's input.
 ### Step 1: Context Gathering and Initial Analysis
 
 1. **Read all mentioned files immediately and FULLY**:
-   - Ticket identifiers/links (Jira/Linear/GitHub) - look them up in the tracker
+   - Ticket identifiers/links explicitly provided by the user (Jira/Linear/GitHub) - look them up in the tracker
    - Research documents
    - Related implementation plans
    - Any JSON/data files mentioned
@@ -68,7 +69,7 @@ Then wait for the user's input.
    - This ensures you have complete understanding before proceeding.
 
 4. **Analyze and verify understanding**:
-   - Cross-reference the ticket requirements with actual code.
+   - Cross-reference any ticket requirements (if provided) with actual code.
    - Identify any discrepancies or misunderstandings.
    - Note assumptions that need verification.
    - Determine true scope based on codebase reality.
@@ -112,16 +113,17 @@ After getting initial clarifications:
    - **code-analyzer** - To understand implementation details (e.g., "analyze how [system] works")
    - **explore** + **code-analyzer** - To find and summarize similar patterns
 
-   **For related tickets (Jira/Linear or similar):**
-   - If a ticket is referenced but not provided, ask for an ID or link.
-   - Use **external-explorer** to look it up when needed.
+**For related tickets (Jira/Linear or similar):**
 
-   Each agent should:
-   - Find the right files and code patterns.
-   - Identify conventions and patterns to follow.
-   - Look for integration points and dependencies.
-   - Return specific file:line references.
-   - Find tests and examples.
+- If a ticket is referenced but not provided, ask for an ID or link; otherwise continue without a ticket.
+- Use **external-explorer** to look it up when needed.
+
+  Each agent should:
+  - Find the right files and code patterns.
+  - Identify conventions and patterns to follow.
+  - Look for integration points and dependencies.
+  - Return specific file:line references.
+  - Find tests and examples.
 
 4. **Wait for ALL sub-tasks to complete** before proceeding.
 
@@ -289,7 +291,7 @@ status: draft
 
 ## References
 
-- Original ticket: `<ticket id/link>`
+- Original ticket (if any): `<ticket id/link>`
 - Related research: `.agents/research/<slug>-YYYY-MM-DD.md`
 - Similar implementation: `[file:line]`
 ````
@@ -336,6 +338,7 @@ status: draft
    - Research actual code patterns using parallel sub-tasks
    - Include specific file paths and line numbers
    - Write measurable success criteria with clear automated vs manual distinction
+
 - Automated steps should use repo task runner commands whenever possible - for example `make -C web-ui check`, `dotnet test`, or `npm run lint` instead of `cd web-ui && bun run fmt`
 
 4. **Be Practical**:
@@ -361,10 +364,11 @@ status: draft
 **Always separate success criteria into two categories:**
 
 1. **Automated Verification** (can be run by execution agents):
+
 - Commands that can be run: `dotnet test`, `npm run lint`, or `make test`.
-   - Specific files that should exist
-   - Code compilation/type checking
-   - Automated test suites
+  - Specific files that should exist
+  - Code compilation/type checking
+  - Automated test suites
 
 2. **Manual Verification** (requires human testing):
    - UI/UX functionality
@@ -464,7 +468,7 @@ Assistant: Let me pull the ticket details first...
 
 [Reads file fully]
 
-Based on the ticket, I understand we need to track parent-child relationships for Claude sub-task events in the hld daemon. Before I start planning, I have some questions...
+Based on the ticket (if provided) and my research of the codebase, I understand we need to track parent-child relationships for Claude sub-task events in the hld daemon. Before I start planning, I have some questions...
 
 [Interactive process continues...]
 ```

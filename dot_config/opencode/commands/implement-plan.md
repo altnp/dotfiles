@@ -14,7 +14,7 @@ You are tasked with implementing an approved technical plan from `.agents/plans/
 When given a plan path:
 
 - Read the plan completely and check for any existing checkmarks (`- [x]`).
-- Look up the original ticket in the tracker (Jira/Linear/GitHub) and read all files mentioned in the plan.
+- If the plan includes a ticket ID/link, look it up in the tracker (Jira/Linear/GitHub), and read all files mentioned in the plan.
 - **IMPORTANT**: Read files fully - do not use limit/offset parameters; you need complete context.
 - Reason about how the pieces fit together.
 - Create a todo list to track your progress.
