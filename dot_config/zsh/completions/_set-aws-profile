@@ -2,7 +2,7 @@
 function _set-aws-profile() {
     if (( CURRENT == 2 )); then
         local profiles
-        profiles=$(grep '^\[.*\]' ~/.aws/credentials | sed 's/^\[\(.*\)\]$/\1/')
+        profiles=$(grep '^\[.*\]' ~/.config/aws/credentials | sed 's/^\[\(.*\)\]$/\1/')
         compadd -- ${=profiles}
     fi
 }

@@ -1,0 +1,21 @@
+#compdef _opencode-wrapper opencode-wrapper
+function _opencode-wrapper() {
+    local -a opts models
+    opts=(
+        '--wt[Create or switch to a git worktree]:worktree name:'
+        '--model[Select model to use]:model:->models'
+        '--multi-model[Run multiple model sessions in tmux]::attempts:'
+    )
+    models=(
+        'codex:OpenAI GPT-5.2 Codex'
+        'opus:Claude Opus 4.5'
+        'sonnet:Claude Sonnet 4.5'
+        'gemini-flash:Gemini 3 Flash Preview'
+    )
+    _arguments -s $opts '*::opencode args:' && return 0
+    case "$state" in
+        models)
+            _describe -t models 'model' models
+            ;;
+    esac
+}

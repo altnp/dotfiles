@@ -1,133 +1,150 @@
 #!/bin/zsh
 __switch_repo_repos_dir={{ .reposDir }}
 __switch_repo_company_dirs=(yipit)
+__switch_repo_ignored_dirs=(~/repos/.agents)
+
+__switch_repo_is_ignored() {
+	local path="$1"
+	local expanded_path="${path:A}"
+	for ignored in "${__switch_repo_ignored_dirs[@]}"; do
+		local expanded_ignored="${ignored:A}"
+		if [[ "$expanded_path" == "$expanded_ignored" || "$expanded_path" == "$expanded_ignored"/* ]]; then
+			return 0
+		fi
+	done
+	return 1
+}
 
 __switch_repo_get_excluded_children() {
-    local base_dir="$1"
-    local excluded=()
-    if [[ -d $base_dir ]]; then
-        for d in "$base_dir"/*(/); do
-            excluded+=("$d")
-        done
-    fi
-    for company in "${__switch_repo_company_dirs[@]}"; do
-        local company_path="$base_dir/$company"
-        # Case-insensitive directory match
-        for d in "$base_dir"/*(/); do
-            if [[ "${d:l}" == "${company_path:l}" ]]; then
-                if [[ -d $d ]]; then
-                    for subd in "$d"/*(/); do
-                        excluded+=("$subd")
-                    done
-                fi
-            fi
-        done
-    done
-    printf '%s\n' "${excluded[@]}"
+	local base_dir="$1"
+	local excluded=()
+	if [[ -d $base_dir ]]; then
+		for d in "$base_dir"/*(/); do
+			__switch_repo_is_ignored "$d" && continue
+			excluded+=("$d")
+		done
+	fi
+	for company in "${__switch_repo_company_dirs[@]}"; do
+		local company_path="$base_dir/$company"
+		# Case-insensitive directory match
+		for d in "$base_dir"/*(/); do
+			if [[ "${d:l}" == "${company_path:l}" ]]; then
+				if [[ -d $d ]]; then
+					for subd in "$d"/*(/); do
+						excluded+=("$subd")
+					done
+				fi
+			fi
+		done
+	done
+	printf '%s\n' "${excluded[@]}"
 }
 
 __switch_repo_get_included_children() {
-    local base_dir="$1"
-    shift
-    local -a exclusions=("$@")
-    local included=()
-    if [[ -d $base_dir ]]; then
-        for d in "$base_dir"/*(/); do
-            local skip=0
-            for ex in "${exclusions[@]}"; do
-                [[ "${d:l}" == "${ex:l}" ]] && skip=1 && break
-            done
-            [[ $skip -eq 0 ]] && included+=("$d")
-        done
-        for d in "$base_dir"/*(/); do
-            if [[ -d $d ]]; then
-                for subd in "$d"/*(/); do
-                    [[ ! -d $subd ]] && continue
-                    local skip2=0
-                    for ex in "${exclusions[@]}"; do
-                        [[ "${subd:l}" == "${ex:l}" ]] && skip2=1 && break
-                    done
-                    [[ $skip2 -eq 0 ]] && included+=("$subd")
-                done
-            fi
-        done
-    fi
-    printf '%s\n' "${included[@]}"
+	local base_dir="$1"
+	shift
+	local -a exclusions=("$@")
+	local included=()
+	if [[ -d $base_dir ]]; then
+		for d in "$base_dir"/*(/); do
+			__switch_repo_is_ignored "$d" && continue
+			local skip=0
+			for ex in "${exclusions[@]}"; do
+				[[ "${d:l}" == "${ex:l}" ]] && skip=1 && break
+			done
+			[[ $skip -eq 0 ]] && included+=("$d")
+		done
+		for d in "$base_dir"/*(/); do
+			__switch_repo_is_ignored "$d" && continue
+			if [[ -d $d ]]; then
+				for subd in "$d"/*(/); do
+					__switch_repo_is_ignored "$subd" && continue
+					[[ ! -d $subd ]] && continue
+					local skip2=0
+					for ex in "${exclusions[@]}"; do
+						[[ "${subd:l}" == "${ex:l}" ]] && skip2=1 && break
+					done
+					[[ $skip2 -eq 0 ]] && included+=("$subd")
+				done
+			fi
+		done
+	fi
+	printf '%s\n' "${included[@]}"
 }
 
 __switch_repo_get_repo() {
-    local name="$1"
-    local -a excluded_children
-    excluded_children=($(__switch_repo_get_excluded_children "$__switch_repo_repos_dir"))
-    local -a included_children
-    included_children=($(__switch_repo_get_included_children "$__switch_repo_repos_dir" "${excluded_children[@]}"))
+	local name="$1"
+	local -a excluded_children
+	excluded_children=($(__switch_repo_get_excluded_children "$__switch_repo_repos_dir"))
+	local -a included_children
+	included_children=($(__switch_repo_get_included_children "$__switch_repo_repos_dir" "${excluded_children[@]}"))
 
-    for company in "${__switch_repo_company_dirs[@]}"; do
-        local company_path="$__switch_repo_repos_dir/$company"
-        if [[ -d $company_path ]]; then
-            local -a company_excluded
-            company_excluded=($(__switch_repo_get_excluded_children "$company_path"))
-            local -a company_included
-            company_included=($(__switch_repo_get_included_children "$company_path" "${company_excluded[@]}"))
-            included_children+=("${company_included[@]}")
-        fi
-    done
-    for repo in "${included_children[@]}"; do
-        local repo_name="${repo:t}"
-        if [[ "${repo_name:l}" == "${name:l}" ]]; then
-            echo "$repo"
-            return 0
-        fi
-    done
-    return 1
+	for company in "${__switch_repo_company_dirs[@]}"; do
+		local company_path="$__switch_repo_repos_dir/$company"
+		if [[ -d $company_path ]]; then
+			local -a company_excluded
+			company_excluded=($(__switch_repo_get_excluded_children "$company_path"))
+			local -a company_included
+			company_included=($(__switch_repo_get_included_children "$company_path" "${company_excluded[@]}"))
+			included_children+=("${company_included[@]}")
+		fi
+	done
+	for repo in "${included_children[@]}"; do
+		local repo_name="${repo:t}"
+		if [[ "${repo_name:l}" == "${name:l}" ]]; then
+			echo "$repo"
+			return 0
+		fi
+	done
+	return 1
 }
 
 switch-repo() {
-    local name="$1"
-    local b="$2"
-    local m=0
-    if [[ "$3" == "-m" ]]; then
-        m=1
-    fi
-    local repo_path
-    repo_path=$(__switch_repo_get_repo "$name")
-    if [[ -n "$repo_path" ]]; then
-        cd "$repo_path" || return 1
-        if [[ $m -eq 1 ]]; then
-            b="master"
-        fi
-        if [[ -n "$b" ]]; then
-            git checkout "$b" -q
-        fi
-    else
-        echo "Repo '$name' not found" >&2
-        return 1
-    fi
+	local name="$1"
+	local b="$2"
+	local m=0
+	if [[ "$3" == "-m" ]]; then
+		m=1
+	fi
+	local repo_path
+	repo_path=$(__switch_repo_get_repo "$name")
+	if [[ -n "$repo_path" ]]; then
+		cd "$repo_path" || return 1
+		if [[ $m -eq 1 ]]; then
+			b="master"
+		fi
+		if [[ -n "$b" ]]; then
+			git checkout "$b" -q
+		fi
+	else
+		echo "Repo '$name' not found" >&2
+		return 1
+	fi
 }
 
 search-repos() {
-    local name="$1"
-    local -a excluded_children
-    excluded_children=($(__switch_repo_get_excluded_children "$__switch_repo_repos_dir"))
-    local -a included_children
-    included_children=($(__switch_repo_get_included_children "$__switch_repo_repos_dir" "${excluded_children[@]}"))
+	local name="$1"
+	local -a excluded_children
+	excluded_children=($(__switch_repo_get_excluded_children "$__switch_repo_repos_dir"))
+	local -a included_children
+	included_children=($(__switch_repo_get_included_children "$__switch_repo_repos_dir" "${excluded_children[@]}"))
 
-    for company in "${__switch_repo_company_dirs[@]}"; do
-        local company_path="$__switch_repo_repos_dir/$company"
-        if [[ -d $company_path ]]; then
-            local -a company_excluded
-            company_excluded=($(__switch_repo_get_excluded_children "$company_path"))
-            local -a company_included
-            company_included=($(__switch_repo_get_included_children "$company_path" "${company_excluded[@]}"))
-            included_children+=("${company_included[@]}")
-        fi
-    done
-    for repo in "${included_children[@]}"; do
-        local repo_name="${repo:t}"
-        if [[ "${repo_name:l}" == *"${name:l}"* ]]; then
-            echo "$repo_name"
-        fi
-    done
+	for company in "${__switch_repo_company_dirs[@]}"; do
+		local company_path="$__switch_repo_repos_dir/$company"
+		if [[ -d $company_path ]]; then
+			local -a company_excluded
+			company_excluded=($(__switch_repo_get_excluded_children "$company_path"))
+			local -a company_included
+			company_included=($(__switch_repo_get_included_children "$company_path" "${company_excluded[@]}"))
+			included_children+=("${company_included[@]}")
+		fi
+	done
+	for repo in "${included_children[@]}"; do
+		local repo_name="${repo:t}"
+		if [[ "${repo_name:l}" == *"${name:l}"* ]]; then
+			echo "$repo_name"
+		fi
+	done
 }
 
 alias repo='switch-repo'

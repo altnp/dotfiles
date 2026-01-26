@@ -146,6 +146,43 @@
                                 "to": [{ "key_code": "hyphen", "modifiers": ["shift"] }]
                             }
                         ]
+                    },
+                    {
+                        "description": "Disable Cmd+M and Cmd+H, map to Ctrl+Cmd+M/H",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "m",
+                                    "modifiers": { "mandatory": ["command", "control"], "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "m", "modifiers": ["command"] }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "m",
+                                    "modifiers": { "mandatory": ["command"], "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "vk_none" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": { "mandatory": ["command", "control"], "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "h", "modifiers": ["command"] }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": { "mandatory": ["command"], "optional": ["any"] }
+                                },
+                                "to": [{ "key_code": "vk_none" }],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },

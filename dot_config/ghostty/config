@@ -16,3 +16,4 @@ macos-titlebar-proxy-icon = hidden
 auto-update = download
 adjust-cell-height = 20%
 adjust-cursor-height = 20%
+keybind = shift+enter=text:\x1b\r

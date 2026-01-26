@@ -8,6 +8,7 @@ return {
     'TmuxNavigatePrevious',
     'TmuxNavigatorProcessList',
   },
+  cond = not vim.g.vscode,
   keys = {
     { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>', mode = 'n' },
     { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>', mode = 'n' },

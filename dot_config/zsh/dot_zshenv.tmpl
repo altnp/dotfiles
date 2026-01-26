@@ -27,6 +27,22 @@ export ANDROID_SDK_ROOT='/opt/android-sdk'
 export ANDROID_AVD_HOME=${XDG_CONFIG_HOME}/android/avd/
 export PATH="${PATH}:${ANDROID_HOME}/platform-tools"
 export PATH="${PATH}:${ANDROID_HOME}/emulator"
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME/aws/config"
+export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME/aws/credentials"
+export IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+export DOTNET_CLI_HOME="$XDG_DATA_HOME/dotnet"
+export CP_HOME_DIR="$XDG_CONFIG_HOME/cocoapods"
+export CP_CACHE_DIR="$XDG_CACHE_HOME/cocoapods"
+export CP_REPOS_DIR="$XDG_CONFIG_HOME/cocoapods/repos"
+export GEM_HOME="$XDG_DATA_HOME/gem"
+export GEM_PATH="$XDG_DATA_HOME/gem"
+export LEMMINX_HOME="$XDG_DATA_HOME/lemminx"
+export MITMPROXY_BASE_DIR="$XDG_CONFIG_HOME/mitmproxy"
+export SBCONFIG_CONFIG_DIR="$XDG_CONFIG_HOME/storybook"
+export SWIFTPM_HOME="$XDG_DATA_HOME/swiftpm"
+export SWIFTPM_CONFIG_DIR="$XDG_CONFIG_HOME/swiftpm"
+export TEALDEER_CONFIG_DIR="$XDG_CONFIG_HOME/tealdeer"
+export CODEX_HOME="$XDG_CONFIG_HOME/codex"
 
 {{ if eq .chezmoi.os "darwin" -}}
 export JENV_ROOT="$XDG_DATA_HOME/jenv"
@@ -44,3 +60,5 @@ path=(
     "$HOME/.dotnet/tools"
 )
 {{- end }}
+
+export OPENCODE_EXPERIMENTAL_LSP_TOOL=true

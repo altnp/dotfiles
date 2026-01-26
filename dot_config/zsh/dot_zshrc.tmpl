@@ -28,8 +28,6 @@ source "${ZINIT_HOME}/zinit.zsh"
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 
-complete -C '/usr/sbin/aws_completer' aws
-
 zinit ice wait lucid \
   atinit'save_aliases=$(alias -L)' \
   atload'unalias -m "*"; eval ${save_aliases}; unset save_aliases'
@@ -54,6 +52,9 @@ eval "$(gdircolors -b ~/.config/zsh/dircolors)"
 {{ end -}}
 export MANPAGER="sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 export BAT_THEME="Visual Studio Dark+"
+export FZF_DEFAULT_OPTS='--height=100% --border=rounded --layout=reverse --margin=2% --color=pointer:#006EC1 --color=info:bright-magenta --color=spinner:cyan --color=prompt:blue --color=hl:bright-yellow --tmux 90%'
+
+export EDITOR="nvim"
 
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
